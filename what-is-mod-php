@@ -1,0 +1,24 @@
+#### what-is-mod-php
+
+mod_php means PHP, as an Apache module.
+
+Basically, when loading mod_php as an Apache module, it allows Apache to interpret PHP files (those are interpreted by mod_php).
+
+
+EDIT : There are (at least) two ways of running PHP, when working with Apache :
+
+Using CGI : a PHP process is launched by Apache, and it is that PHP process that interprets PHP code -- not Apache itself
+Using PHP as an Apache module (called mod_php) : the PHP interpreter is then kind of "embedded" inside the Apache process : there is no external PHP process -- which means that Apache and PHP can communicate better.
+
+And re-edit, after the comment : using CGI or mod_php is up to you : it's only a matter of configuration of your webserver.
+
+To know which way is currently used on your server, you can check the output of phpinfo() : there should be something indicating whether PHP is running via mod_php (or mod_php5), or via CGI.
+
+You might also want to take a look at the php_sapi_name() function : it returns the type of interface between web server and PHP.
+
+
+If you check in your Apache's configuration files, when using mod_php, there should be a LoadModule line looking like this :
+
+LoadModule php5_module        modules/libphp5.so
+(The file name, on the right, can be different -- on Windows, for example, it should be a .dll)
+
